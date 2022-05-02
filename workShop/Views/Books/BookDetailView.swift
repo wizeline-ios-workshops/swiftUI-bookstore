@@ -1,13 +1,17 @@
 //
-//  ContentView.swift
+//  BookDetailView.swift
 //  workShop
 //
-//  Created by Peter Leyva Bazan on 27/04/22.
+//  Created by Peter Leyva Bazan on 28/04/22.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct BookDetailView: View {
+    var id: Int
+//    @State var book: BookDetailModel = BookDetailModel.mockBooks()[0]
+    var book = MockBookService().bookDetails(bookId: 1)
+
     var body: some View {
         VStack {
             Spacer()
@@ -22,21 +26,23 @@ struct ContentView: View {
             Spacer()
             createBuyButton(price: "19.86$")
             Spacer()
+        }.onAppear {
+//            book = BookDetailModel.mockBooks().filter {$0.id == id}[0]
         }
     }
     
     var author: some View {
-        Text("Michael Hirst")
+        Text(book.author)
             .foregroundColor(.gray)
     }
     
     var title: some View {
-        Text("Vikings")
+        Text(book.title)
             .bold()
     }
     
     var cover: some View {
-        Image("cover-vikings")
+        Image(book.imageName)
             .resizable()
             .frame(width: 180, height: 280)
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -44,7 +50,7 @@ struct ContentView: View {
     }
     
     var description: some View {
-        Text("The adventures of a Ragnar Lothbrok: the greatest hero of his age. The series tells the saga of Ragnar's band of Viking brothers and his family as he rises to become King of the Viking tribes. As well as being a fearless warrior, Ragnar embodies the Norse traditions of devotion to the gods: legend has it that he was a direct descendant of Odin, the god of war and warriors")
+        Text(book.description)
             .foregroundColor(.gray)
             .lineLimit(4)
             .padding()
@@ -80,11 +86,10 @@ struct ContentView: View {
         .buttonBorderShape(.capsule)
         .controlSize(.large)
     }
-    
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        BookDetailView(id: 1, book: MockBookService().bookDetails(bookId: 1))
     }
 }

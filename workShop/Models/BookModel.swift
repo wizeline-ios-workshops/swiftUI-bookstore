@@ -10,8 +10,8 @@ import SwiftUI
 
 struct Book: Identifiable {
     var id: Int
-    var author: String
     var title: String
-    var description: String
-    var cover: String
+    var author: String
+    var price: Double
+    var imageName: String
 }
