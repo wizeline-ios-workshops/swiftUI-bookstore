@@ -9,8 +9,7 @@ import SwiftUI
 
 struct BookDetailView: View {
     var id: Int
-//    @State var book: BookDetailModel = BookDetailModel.mockBooks()[0]
-    var book = MockBookService().bookDetails(bookId: 1)
+    @EnvironmentObject var viewModel: BookViewModel
 
     var body: some View {
         VStack {
@@ -20,29 +19,29 @@ struct BookDetailView: View {
                 .padding(.top, 16)
             title
             description
-            createCategories()
+            createCategories(genres: viewModel.book?.genre)
             Divider()
                 .padding()
             Spacer()
             createBuyButton(price: "19.86$")
             Spacer()
         }.onAppear {
-//            book = BookDetailModel.mockBooks().filter {$0.id == id}[0]
+            viewModel.getBookById(id)
         }
     }
     
     var author: some View {
-        Text(book.author)
+        Text(viewModel.book?.author ?? "")
             .foregroundColor(.gray)
     }
     
     var title: some View {
-        Text(book.title)
+        Text(viewModel.book?.title ?? "")
             .bold()
     }
     
     var cover: some View {
-        Image(book.imageName)
+        Image(viewModel.book?.imageName ?? "")
             .resizable()
             .frame(width: 180, height: 280)
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -50,20 +49,22 @@ struct BookDetailView: View {
     }
     
     var description: some View {
-        Text(book.description)
+        Text(viewModel.book?.description ?? "")
             .foregroundColor(.gray)
             .lineLimit(4)
             .padding()
     }
     
     
-    func createCategories() -> some View {
+    func createCategories(genres: [Genre]?) -> some View {
         HStack {
             Spacer()
-            createCategoryCell(name: "Fantasy")
-            createCategoryCell(name: "Action")
-                .padding(.horizontal, 8)
-            createCategoryCell(name: "Novel")
+            if let genres = genres {
+                ForEach(genres, id: \.self) { genre in
+                    createCategoryCell(name: genre.rawValue)
+                    
+                }
+            }            
             Spacer()
         }
     }
@@ -90,6 +91,7 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(id: 1, book: MockBookService().bookDetails(bookId: 1))
+        BookDetailView(id: 1)
+            .environmentObject(BookViewModel())
     }
 }

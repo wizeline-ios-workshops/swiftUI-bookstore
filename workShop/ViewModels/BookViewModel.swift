@@ -8,18 +8,23 @@
 import Foundation
 import SwiftUI
 
-class BookViewModel {
+class BookViewModel: ObservableObject {
     
-//    @Published var books:
+    @Published var books: [Book] = []
+    @Published var book: BookDetail?
     
+    let service: BookService
     
+    init(service: BookService = MockBookService()) {
+        self.service = service
+    }
     
     func getBookList() {
-        
+        books = service.bookList()
     }
     
     func getBookById(_ id: Int) {
-        
+        book = service.bookDetails(bookId: id)
     }
     
 }

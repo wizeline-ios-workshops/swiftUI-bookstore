@@ -21,8 +21,15 @@ struct BookDetail: Identifiable {
     var isAvailable: Bool
 }
 
-enum Genre {
-    case fantasy, action, history, business, present, economics, drama, scienceFiction
+enum Genre: String {
+    case fantasy = "Fantasy"
+    case action = "Action"
+    case history = "History"
+    case business = "Business"
+    case present = "Present"
+    case economics = "Economics"
+    case drama = "Drama"
+    case scienceFiction = "Science Fiction"    
 }
 
 

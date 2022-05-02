@@ -21,8 +21,8 @@ protocol BookService {
 class MockBookService: BookService {
   // MARK: Mock data
   var books: [Book] = [
-    Book(id: 0, title: "The Fellowship of the Ring", author: "J. R. R. Tolkien", price: 18.85, imageName: "cover-vikings"),
-    Book(id: 1, title: "The Two Towers", author: "J. R. R. Tolkien", price: 11.99, imageName: "cover-vikings"),
+    Book(id: 0, title: "The Fellowship of the Ring", author: "J. R. R. Tolkien", price: 18.85, imageName: "the-fellowship"),
+    Book(id: 1, title: "The Two Towers", author: "J. R. R. Tolkien", price: 11.99, imageName: "twotowers"),
     Book(id: 2, title: "Homo Deus: A Brief History of Tomorrow", author: "Yuval Noah Harari", price: 19.99, imageName: "cover-vikings"),
     Book(id: 3, title: "The 4-Hour Workweek", author: "Timothy Ferriss", price: 16.15, imageName: "cover-vikings"),
     Book(id: 4, title: "Man's Search for Meaning", author: "Viktor E. Frankl", price: 12.25, imageName: "cover-vikings"),
